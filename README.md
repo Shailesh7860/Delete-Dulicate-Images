@@ -4,7 +4,9 @@ This python code will delete all the duplicate images in the folder.
 
 # How to run it
 
-Python deleter.py -d "path to the images folder" -r
+Python deleter.py -d "path to the images folder" -r "1 or 0"
+
+remove the double quotes(")
 
 #Required pakages
 
