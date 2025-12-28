@@ -14,7 +14,7 @@ This Python script scans a specified directory for duplicate images and removes 
 Make sure you have Python installed along with the required dependencies:
 
 ```bash
-pip install imutils numpy opencv-python argparse
+pip install -r requirements.txt
 ```
 
 ## Usage
