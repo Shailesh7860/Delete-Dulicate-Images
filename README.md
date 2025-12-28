@@ -17,6 +17,26 @@ Make sure you have Python installed along with the required dependencies:
 pip install -r requirements.txt
 ```
 
+### Option 1: Run as Python script
+```bash
+python imgdedup.py ./photos
+```
+
+### Option 2: Install as CLI (Linux/macOS/Windows)
+```bash
+pip install -e .
+imgdedup ./photos --remove
+```
+
+### Option 3: Use Windows executable (Windows only)
+Download `imgdedup.exe` from [releases](https://github.com/Shailesh7860/Delete-Duplicate-Images/releases) and run:
+```bash
+imgdedup.exe C:\Users\YourName\Pictures --remove
+```
+
+To build your own Windows .exe, see [Building from Source](#building-from-source) below.
+
+
 ## Usage
 Run the script with the following command:
 
@@ -68,9 +88,28 @@ Running with `--remove`:
 The script requires the following Python packages:
 - `imutils`
 - `numpy`
-- `argparse`
-- `cv2` (OpenCV)
-- `os`
+- `opencv-python` (cv2)
+- `argparse` (built-in)
+
+## Building from Source
+
+### Build Windows .exe
+
+Requires: Python 3.7+, PyInstaller
+
+**On Windows:**
+```bash
+pip install PyInstaller
+build_exe.bat
+```
+
+**On Linux/macOS:**
+```bash
+pip install PyInstaller
+bash build_exe.sh
+```
+
+The executable will be created in `releases/imgdedup.exe`.
 
 ## License
 This project is open-source under the MIT License.

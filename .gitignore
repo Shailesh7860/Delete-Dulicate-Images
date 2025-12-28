@@ -10,3 +10,6 @@ htmlcov/
 .venv/
 venv/
 sample_test_images/
+*.spec.bak
+.DS_Store
+*.exe
