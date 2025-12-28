@@ -6,8 +6,12 @@ from setuptools import setup, find_packages
 with open("README.md", "r", encoding="utf-8") as fh:
     long_description = fh.read()
 
-with open("requirements.txt", "r", encoding="utf-8") as fh:
-    requirements = [line.strip() for line in fh if line.strip() and not line.startswith("#")]
+# Dependencies required by the package
+install_requires = [
+    "imutils",
+    "numpy",
+    "opencv-python",
+]
 
 setup(
     name="dedup-images",
@@ -32,7 +36,7 @@ setup(
         "Development Status :: 4 - Beta",
     ],
     python_requires=">=3.7",
-    install_requires=requirements,
+    install_requires=install_requires,
     entry_points={
         "console_scripts": [
             "dedup-images=imgdedup:main",
