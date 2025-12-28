@@ -10,7 +10,7 @@ with open("requirements.txt", "r", encoding="utf-8") as fh:
     requirements = [line.strip() for line in fh if line.strip() and not line.startswith("#")]
 
 setup(
-    name="duplicate-image-finder",
+    name="dedup-images",
     version="0.1.0",
     author="Shailesh Suvarna",
     author_email="shaileshsuvarna24@gmail.com",
@@ -35,7 +35,7 @@ setup(
     install_requires=requirements,
     entry_points={
         "console_scripts": [
-            "duplicate-image-finder=imgdedup:main",
+            "dedup-images=imgdedup:main",
         ],
     },
 )

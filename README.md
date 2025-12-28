@@ -25,13 +25,13 @@ python imgdedup.py ./photos
 ### Option 2: Install as CLI (Linux/macOS/Windows)
 ```bash
 pip install -e .
-duplicate-image-finder ./photos --remove
+dedup-images ./photos --remove
 ```
 
 Or install from PyPI (once released):
 ```bash
-pip install duplicate-image-finder
-duplicate-image-finder ~/Pictures --remove
+pip install dedup-images
+dedup-images ~/Pictures --remove
 ```
 
 ### Option 3: Use Windows executable (Windows only)
@@ -58,10 +58,10 @@ Or if installed via pip:
 
 ```bash
 # Dry-run
-duplicate-image-finder ./photos
+dedup-images ./photos
 
 # Remove duplicates
-duplicate-image-finder ./photos --remove
+dedup-images ./photos --remove
 ```
 
 ### Arguments:
@@ -75,7 +75,7 @@ duplicate-image-finder ./photos --remove
 python imgdedup.py ~/Pictures
 
 # Or with installed CLI:
-duplicate-image-finder ~/Pictures
+dedup-images ~/Pictures
 ```
 
 ## Example Output
@@ -132,9 +132,9 @@ This project is open-source under the MIT License.
 
 ## Roadmap
 
-Future enhancements planned for duplicate-image-finder:
+Future enhancements planned for dedup-images:
 
-- [ ] Publish to PyPI: `pip install duplicate-image-finder`
+- [ ] Publish to PyPI: `pip install dedup-images`
 - [ ] Create Windows executable (.exe) for non-developers
 - [ ] Add hash tolerance/threshold support for similar (not identical) duplicates
 - [ ] Recursive folder scanning with `--recursive` flag
