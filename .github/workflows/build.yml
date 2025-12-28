@@ -36,9 +36,17 @@ jobs:
       
       - name: Build Windows executable
         run: |
-          pyinstaller imgdedup.spec
-          mkdir -p releases
-          copy dist\imgdedup.exe releases\imgdedup.exe
+          echo "Building Windows executable with PyInstaller..."
+          pyinstaller --onefile --console --name=imgdedup --icon=NONE imgdedup.py
+          if exist dist\imgdedup.exe (
+            echo Executable created successfully
+            mkdir releases 2>nul
+            copy dist\imgdedup.exe releases\imgdedup.exe
+            echo Build successful!
+          ) else (
+            echo Build failed - executable not found
+            exit 1
+          )
       
       - name: Verify executable
         run: |
