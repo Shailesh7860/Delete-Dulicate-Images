@@ -68,3 +68,5 @@ for (h, hashedPaths) in hashes.items ():
         # one, and only one, of the duplicate inages)
         for p in hashedPaths[1:]:
             os.remove(p)
+if __name__ == "__main__":
+    pass
