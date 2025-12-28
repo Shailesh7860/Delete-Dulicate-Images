@@ -1,31 +1,25 @@
 # -*- mode: python ; coding: utf-8 -*-
-"""PyInstaller spec file for imgdedup Windows executable."""
 
-block_cipher = None
 
 a = Analysis(
     ['imgdedup.py'],
     pathex=[],
     binaries=[],
     datas=[],
-    hiddenimports=['imutils', 'cv2', 'numpy'],
+    hiddenimports=[],
     hookspath=[],
     hooksconfig={},
     runtime_hooks=[],
-    excludedimports=[],
-    win_no_prefer_redirects=False,
-    win_private_assemblies=False,
-    cipher=block_cipher,
+    excludes=[],
     noarchive=False,
+    optimize=0,
 )
-
-pyz = PYZ(a.pure, a.zipped_data, cipher=block_cipher)
+pyz = PYZ(a.pure)
 
 exe = EXE(
     pyz,
     a.scripts,
     a.binaries,
-    a.zipfiles,
     a.datas,
     [],
     name='imgdedup',
@@ -37,6 +31,7 @@ exe = EXE(
     runtime_tmpdir=None,
     console=True,
     disable_windowed_traceback=False,
+    argv_emulation=False,
     target_arch=None,
     codesign_identity=None,
     entitlements_file=None,
