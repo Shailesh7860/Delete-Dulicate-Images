@@ -1,0 +1,96 @@
+name: Build Windows .exe & Release
+
+on:
+  push:
+    branches:
+      - main
+    tags:
+      - 'v*'
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    name: Build Windows Executable
+    runs-on: windows-latest
+    
+    strategy:
+      matrix:
+        python-version: ['3.11']
+    
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ matrix.python-version }}
+          cache: 'pip'
+      
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install PyInstaller
+      
+      - name: Build Windows executable
+        run: |
+          pyinstaller imgdedup.spec
+          mkdir -p releases
+          copy dist\imgdedup.exe releases\imgdedup.exe
+      
+      - name: Verify executable
+        run: |
+          .\releases\imgdedup.exe --help
+      
+      - name: Upload artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: imgdedup-windows
+          path: releases/imgdedup.exe
+          retention-days: 30
+      
+      - name: Create Release (on tag)
+        if: startsWith(github.ref, 'refs/tags/v')
+        uses: softprops/action-gh-release@v1
+        with:
+          files: releases/imgdedup.exe
+          draft: false
+          prerelease: ${{ contains(github.ref, 'alpha') || contains(github.ref, 'beta') }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  test:
+    name: Run Tests
+    runs-on: ubuntu-latest
+    
+    strategy:
+      matrix:
+        python-version: ['3.8', '3.9', '3.10', '3.11']
+    
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ matrix.python-version }}
+          cache: 'pip'
+      
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+      
+      - name: Lint with syntax check
+        run: |
+          python -m py_compile imgdedup.py
+      
+      - name: Test help output
+        run: |
+          python imgdedup.py --help
+      
+      - name: Test module import
+        run: |
+          python -c "from imgdedup import dhash, compute_hashes, main; print('✓ All imports successful')"
