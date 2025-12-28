@@ -16,46 +16,70 @@ def dhash(image, hashSize=8):
     # convert the difference image to a hash and return it
     return sum([2 ** i for (i, v) in enumerate(diff.flatten()) if v])
 
+
+def compute_hashes(dataset_path, hashSize=8):
+    """Compute dHash for all readable images in `dataset_path`.
+
+    Returns a dict mapping hash -> list of file paths. Skips unreadable
+    or corrupt images and prints a warning for each.
+    """
+    hashes = {}
+    imagePaths = list(paths.list_images(dataset_path))
+    for imagePath in imagePaths:
+        image = cv2.imread(imagePath)
+        if image is None:
+            print(f"[WARN] unable to read image: {imagePath}")
+            continue
+        try:
+            h = dhash(image, hashSize=hashSize)
+        except Exception as e:
+            print(f"[WARN] failed to hash {imagePath}: {e}")
+            continue
+        hashes.setdefault(h, []).append(imagePath)
+    return hashes
+
     # construct the argument parser and parse the arguments
 def main():
-    ap = argparse.ArgumentParser()
-    ap.add_argument("-d", "--dataset", required=True,
-                    help="path to input dataset")
-    ap.add_argument("-r", "--remove", type=int, default=-1,
-                    help="whether or not duplicates should be removed (i.e., dry run)")
+    ap = argparse.ArgumentParser(
+        prog="imgdedup",
+        description="Find and remove visually duplicate images using perceptual hashing.",
+        formatter_class=argparse.RawDescriptionHelpFormatter,
+        epilog="""
+Examples:
+  imgdedup ./photos              # Dry-run: preview duplicates
+  imgdedup ./photos --remove     # Remove all duplicate images
+        """)
+    ap.add_argument("path", help="path to image directory to scan")
+    ap.add_argument("--dry-run", action="store_true", default=True,
+                    help="preview duplicates without deleting (default: True)")
+    ap.add_argument("--remove", action="store_true",
+                    help="actually delete duplicate images")
     args = vars(ap.parse_args())
 
     # basic validation
-    dataset_path = args["dataset"]
+    dataset_path = args["path"]
     if not os.path.isdir(dataset_path):
         raise SystemExit("[ERROR] dataset path does not exist or is not a directory: {}".format(dataset_path))
-    if args["remove"] < -1:
-        raise SystemExit("[ERROR] --remove must be -1 (default), 0 (dry-run) or >0 to remove")
+    
+    # conflict check: if both --dry-run and --remove, prefer --remove
+    is_remove_mode = args["remove"]
 
-    # grab the paths to all images in our input dataset directory and
-    # then initialize our hashes dictionary
+    # compute hashes for all readable images
     print("[INFO] computing image hashes...")
-    imagePaths = list(paths.list_images(dataset_path))
-    hashes = {}
-
-    # loop over our image paths
-    for imagePath in imagePaths:
-        # load the input image and compute the hash
-        image = cv2.imread(imagePath)
-        h = dhash(image)
-
-        # grab all image paths with that hash, add the current image
-        # path to it, and store the list back in the hashes dictionary
-        p = hashes.get(h, [])
-        p.append(imagePath)
-        hashes[h] = p
-
+    hashes = compute_hashes(dataset_path)
+    
+    if not hashes:
+        print("[INFO] no images found in directory")
+        return
+    
+    print("[INFO] found {} unique image(s)".format(len(hashes)))
+    
     # loop over the image hashes
     for (h, hashedPaths) in hashes.items():
         # check to see if there is more than one image with the same hash
         if len(hashedPaths) > 1:
             # check to see if this is a dry run
-            if args["remove"] <= 0:
+            if not is_remove_mode:
                 # initialize a montage to store all images with the same
                 # hash
                 montage = None
@@ -63,8 +87,11 @@ def main():
                 # loop over all image paths with the same hash
                 for p in hashedPaths:
                     # load the input image and resize it to a fixed width
-                    # and height
+                    # and height; skip unreadable images
                     image = cv2.imread(p)
+                    if image is None:
+                        print(f"[WARN] unable to read image for montage: {p}")
+                        continue
                     image = cv2.resize(image, (900, 900))
 
                     # if our montage is None, initialize it
@@ -75,13 +102,14 @@ def main():
                         montage = np.hstack([montage, image])
 
                 # show the montage for the hash
-                print("[INFO hash: {}]".format(h))
+                print("[INFO] found {} duplicates with hash: {}".format(len(hashedPaths) - 1, h))
                 #cv2.imshow("Montage", montage)
                 #cv2.waitKey(0)
             else:
-                # loop over all image paths with the same hash except
+                # remove all image paths with the same hash except
                 # for the first image in the list (since we want to keep
                 # one, and only one, of the duplicate images)
+                print("[INFO] removing {} duplicates with hash: {}".format(len(hashedPaths) - 1, h))
                 for p in hashedPaths[1:]:
                     os.remove(p)
 if __name__ == "__main__":
