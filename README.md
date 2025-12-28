@@ -1,4 +1,5 @@
 # Delete Duplicate Images
+A fast, offline CLI tool to find and remove visually duplicate images.
 
 ## Overview
 This Python script scans a specified directory for duplicate images and removes them automatically. It utilizes the **dHash (Difference Hashing) algorithm** to detect duplicate images based on visual similarity rather than just filenames or metadata.
