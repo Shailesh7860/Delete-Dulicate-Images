@@ -25,7 +25,13 @@ python imgdedup.py ./photos
 ### Option 2: Install as CLI (Linux/macOS/Windows)
 ```bash
 pip install -e .
-imgdedup ./photos --remove
+duplicate-image-finder ./photos --remove
+```
+
+Or install from PyPI (once released):
+```bash
+pip install duplicate-image-finder
+duplicate-image-finder ~/Pictures --remove
 ```
 
 ### Option 3: Use Windows executable (Windows only)
@@ -48,6 +54,16 @@ python imgdedup.py ./photos
 python imgdedup.py ./photos --remove
 ```
 
+Or if installed via pip:
+
+```bash
+# Dry-run
+duplicate-image-finder ./photos
+
+# Remove duplicates
+duplicate-image-finder ./photos --remove
+```
+
 ### Arguments:
 - `path`: Path to the folder containing images (required).
 - `--dry-run`: Preview duplicates without deleting (default behavior).
@@ -58,8 +74,8 @@ python imgdedup.py ./photos --remove
 # Preview duplicates in Pictures folder
 python imgdedup.py ~/Pictures
 
-# Remove duplicates from Pictures folder
-python imgdedup.py ~/Pictures --remove
+# Or with installed CLI:
+duplicate-image-finder ~/Pictures
 ```
 
 ## Example Output
@@ -116,14 +132,14 @@ This project is open-source under the MIT License.
 
 ## Roadmap
 
-Future enhancements planned for imgdedup:
+Future enhancements planned for duplicate-image-finder:
 
-- [ ] Convert to installable CLI via `pip install imgdedup`
+- [ ] Publish to PyPI: `pip install duplicate-image-finder`
 - [ ] Create Windows executable (.exe) for non-developers
 - [ ] Add hash tolerance/threshold support for similar (not identical) duplicates
 - [ ] Recursive folder scanning with `--recursive` flag
 - [ ] Progress bar for large image collections
-- [ ] Configuration file support (.imgdeduprc)
+- [ ] Configuration file support (.dedup.config)
 - [ ] GitHub Actions for automated releases
 - [ ] Performance optimizations for 10,000+ images
 
