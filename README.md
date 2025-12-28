@@ -21,7 +21,7 @@ pip install -r requirements.txt
 Run the script with the following command:
 
 ```bash
-python deleter.py -d "path_to_images_folder" -r 1
+python imgdedup.py -d "path_to_images_folder" -r 1
 ```
 
 ### Arguments:
@@ -30,7 +30,7 @@ python deleter.py -d "path_to_images_folder" -r 1
 
 ### Example:
 ```bash
-python deleter.py -d "C:/Users/YourName/Pictures" -r 1
+python imgdedup.py -d "C:/Users/YourName/Pictures" -r 1
 ```
 This will scan the `Pictures` folder and delete duplicate images.
 
