@@ -36,6 +36,7 @@ jobs:
           pip install PyInstaller
       
       - name: Build Windows executable
+        shell: cmd
         run: |
           echo "Building Windows executable with PyInstaller..."
           pyinstaller --onefile --console --name=imgdedup --icon=NONE imgdedup.py
