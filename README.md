@@ -157,7 +157,7 @@ Contributions are welcome! Please see [CONTRIBUTING.md](CONTRIBUTING.md) for gui
 
 Future enhancements planned for dedup-images:
 
-- [ ] Publish to PyPI: `pip install dedup-images`
+- [x] Publish to PyPI: `pip install dedup-images`
 - [x] Create Windows executable (.exe) for non-developers
 - [ ] Add hash tolerance/threshold support for similar (not identical) duplicates
 - [ ] Recursive folder scanning with `--recursive` flag
