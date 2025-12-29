@@ -9,6 +9,17 @@ This Python script scans a specified directory for duplicate images and removes 
 - **Batch Processing**: Scans and processes all images in the specified directory.
 - **Dry Run Option**: Allows you to preview duplicates before deletion.
 - **Automated Deletion**: Removes duplicate images while keeping one copy.
+- **Robust Error Handling**: Gracefully handles corrupt or unreadable images.
+- **Cross-Platform**: Works on Windows, macOS, and Linux.
+
+## How It Works
+The tool uses **dHash (Difference Hashing)**, a perceptual hashing algorithm that:
+1. Converts images to grayscale and resizes them to a small 8x8 grid
+2. Computes differences between adjacent pixels to create a unique hash
+3. Groups images with identical hashes as duplicates
+4. Displays or removes duplicates while keeping one original copy
+
+This approach is much faster than pixel-by-pixel comparison and effectively identifies visually identical images regardless of file metadata.
 
 ## Installation
 Make sure you have Python installed along with the required dependencies:
@@ -66,8 +77,8 @@ dedup-images ./photos --remove
 
 ### Arguments:
 - `path`: Path to the folder containing images (required).
-- `--dry-run`: Preview duplicates without deleting (default behavior).
-- `--remove`: Actually delete duplicate images.
+- `--dry-run`: Preview duplicates without deleting (default: True).
+- `--remove`: Actually delete duplicate images (overrides --dry-run).
 
 ### Example:
 ```bash
@@ -127,21 +138,38 @@ bash build_exe.sh
 
 The executable will be created in `releases/imgdedup.exe`.
 
+## Important Notes
+- **Backup Your Images**: Before using `--remove`, always backup your images in case of accidental deletion.
+- **Same Hash = Duplicate**: Images are considered duplicates only if they have identical hashes. Visually similar but different images will not be flagged.
+- **First Image Kept**: The tool keeps the first image it encounters and removes subsequent duplicates with the same hash.
+- **Non-Recursive**: By default, the tool only scans the specified directory. Subdirectories are not included (planned feature).
+- **Supported Formats**: Works with common image formats supported by OpenCV (PNG, JPEG, BMP, TIFF, etc.).
+
 ## License
 This project is open-source under the MIT License.
+
+## Contributing
+Contributions are welcome! Please see [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines on how to contribute to this project.
+
+## Support
 
 ## Roadmap
 
 Future enhancements planned for dedup-images:
 
 - [ ] Publish to PyPI: `pip install dedup-images`
-- [ ] Create Windows executable (.exe) for non-developers
+- [x] Create Windows executable (.exe) for non-developers
 - [ ] Add hash tolerance/threshold support for similar (not identical) duplicates
 - [ ] Recursive folder scanning with `--recursive` flag
 - [ ] Progress bar for large image collections
 - [ ] Configuration file support (.dedup.config)
 - [ ] GitHub Actions for automated releases
 - [ ] Performance optimizations for 10,000+ images
+- [ ] Support for various image formats (HEIC, WEBP, etc.)
+- [ ] Option to keep the newest/oldest file instead of the first one
+
+## Support
+If you encounter any issues or have feature requests, please open an [GitHub Issue](https://github.com/Shailesh7860/Delete-Duplicate-Images/issues).
 
 ---
 
