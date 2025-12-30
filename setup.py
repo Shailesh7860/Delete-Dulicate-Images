@@ -21,7 +21,7 @@ setup(
     description="A fast, offline CLI tool to find and remove visually duplicate images.",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://github.com/Shailesh7860/Delete-Duplicate-Images",
+    url="https://github.com/Shailesh7860/dedup-image",
     py_modules=["imgdedup"],
     classifiers=[
         "Programming Language :: Python :: 3",
