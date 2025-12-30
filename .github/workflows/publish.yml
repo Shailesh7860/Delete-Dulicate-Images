@@ -41,7 +41,7 @@ jobs:
             ## Installation
             
             ```bash
-            pip install dedup-images
+            pip install dedup-image
             ```
             
             View full changelog: https://github.com/Shailesh7860/Delete-Duplicate-Images/commits/$(git rev-parse HEAD)
