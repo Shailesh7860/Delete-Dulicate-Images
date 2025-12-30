@@ -44,6 +44,6 @@ jobs:
             pip install dedup-image
             ```
             
-            View full changelog: https://github.com/Shailesh7860/Delete-Duplicate-Images/commits/$(git rev-parse HEAD)
+            View full changelog: https://github.com/Shailesh7860/dedup-image/commits/$(git rev-parse HEAD)
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
