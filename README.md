@@ -46,7 +46,7 @@ dedup-image ~/Pictures --remove
 ```
 
 ### Option 3: Use Windows executable (Windows only)
-Download `imgdedup.exe` from [releases](https://github.com/Shailesh7860/Delete-Duplicate-Images/releases) and run:
+Download `imgdedup.exe` from [releases](https://github.com/Shailesh7860/dedup-image/releases) and run:
 ```bash
 imgdedup.exe C:\Users\YourName\Pictures --remove
 ```
@@ -169,7 +169,7 @@ Future enhancements planned for dedup-image:
 - [ ] Option to keep the newest/oldest file instead of the first one
 
 ## Support
-If you encounter any issues or have feature requests, please open an [GitHub Issue](https://github.com/Shailesh7860/Delete-Duplicate-Images/issues).
+If you encounter any issues or have feature requests, please open an [GitHub Issue](https://github.com/Shailesh7860/dedup-image/issues).
 
 ---
 
