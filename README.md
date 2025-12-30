@@ -36,13 +36,13 @@ python imgdedup.py ./photos
 ### Option 2: Install as CLI (Linux/macOS/Windows)
 ```bash
 pip install -e .
-dedup-images ./photos --remove
+dedup-image ./photos --remove
 ```
 
 Or install from PyPI (once released):
 ```bash
-pip install dedup-images
-dedup-images ~/Pictures --remove
+pip install dedup-image
+dedup-image ~/Pictures --remove
 ```
 
 ### Option 3: Use Windows executable (Windows only)
@@ -69,10 +69,10 @@ Or if installed via pip:
 
 ```bash
 # Dry-run
-dedup-images ./photos
+dedup-image ./photos
 
 # Remove duplicates
-dedup-images ./photos --remove
+dedup-image ./photos --remove
 ```
 
 ### Arguments:
@@ -86,7 +86,7 @@ dedup-images ./photos --remove
 python imgdedup.py ~/Pictures
 
 # Or with installed CLI:
-dedup-images ~/Pictures
+dedup-image ~/Pictures
 ```
 
 ## Example Output
@@ -155,9 +155,9 @@ Contributions are welcome! Please see [CONTRIBUTING.md](CONTRIBUTING.md) for gui
 
 ## Roadmap
 
-Future enhancements planned for dedup-images:
+Future enhancements planned for dedup-image:
 
-- [x] Publish to PyPI: `pip install dedup-images`
+- [x] Publish to PyPI: `pip install dedup-image`
 - [x] Create Windows executable (.exe) for non-developers
 - [ ] Add hash tolerance/threshold support for similar (not identical) duplicates
 - [ ] Recursive folder scanning with `--recursive` flag
