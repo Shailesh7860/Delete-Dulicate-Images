@@ -14,8 +14,8 @@ install_requires = [
 ]
 
 setup(
-    name="dedup-images",
-    version="0.1.0",
+    name="dedup-image",
+    version="1.0.0",
     author="Shailesh Suvarna",
     author_email="shaileshsuvarna24@gmail.com",
     description="A fast, offline CLI tool to find and remove visually duplicate images.",
