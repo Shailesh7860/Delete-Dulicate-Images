@@ -7,8 +7,8 @@ Thanks for your interest in imgdedup! Here's how you can help.
 1. Fork the repository
 2. Clone your fork:
    ```bash
-   git clone https://github.com/YOUR-USERNAME/dedup-images.git
-   cd dedup-images
+   git clone https://github.com/YOUR-USERNAME/dedup-image.git
+   cd dedup-image
    ```
 3. Create a virtual environment:
    ```bash
